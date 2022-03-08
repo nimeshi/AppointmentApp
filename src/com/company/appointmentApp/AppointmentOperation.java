@@ -22,7 +22,7 @@ public class AppointmentOperation {
         name = sc.nextLine();
         System.out.println("Enter Address");
         address = sc.nextLine();
-        System.out.println("Enter Date "yyyy-mm-dd");
+        System.out.println("Enter Date (yyyy-mm-dd)");
         date = sc.nextLine();
         appointments.add(new Appointment.AppointmentBuilder(id, name, date).setAddress(address).build());
     }
@@ -73,11 +73,13 @@ public class AppointmentOperation {
     }
 
     public void filterAppointment(List<Appointment> appointments) {
-        System.out.println("Enter the Name to Search: ");
-        String input = sc.nextLine();
+        System.out.println("Enter the Name: ");
+        String inputName = sc.nextLine();
+        System.out.println("Enter the Date: ");
+        String inputDate = sc.nextLine();
 
         Map<Integer, Appointment> appointmentMap = appointments.stream()
-                .filter(appointment -> appointment.getName().equals(input) || appointment.getDate().equals(input))
+                .filter(appointment -> appointment.getName().equals(inputName) || appointment.getDate().equals(inputDate))
                 .collect(Collectors.toMap(
                         Appointment::getId,
                         Function.identity()
