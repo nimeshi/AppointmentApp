@@ -13,6 +13,7 @@ public class AppointmentOperation {
     int id;
     String name;
     String address;
+    String date;
 
     public void createAppointment(List<Appointment> appointments) {
         System.out.println("Enter ID number");
@@ -21,7 +22,9 @@ public class AppointmentOperation {
         name = sc.nextLine();
         System.out.println("Enter Address");
         address = sc.nextLine();
-        appointments.add(new Appointment(id,name,address));
+        System.out.println("Enter Date "yyyy-mm-dd");
+        date = sc.nextLine();
+        appointments.add(new Appointment.AppointmentBuilder(id, name, date).setAddress(address).build());
     }
 
     public void displayAppointment(List<Appointment> appointments) {
@@ -74,7 +77,7 @@ public class AppointmentOperation {
         String input = sc.nextLine();
 
         Map<Integer, Appointment> appointmentMap = appointments.stream()
-                .filter(appointment -> appointment.getName().equals(input) || appointment.getAddress().equals(input))
+                .filter(appointment -> appointment.getName().equals(input) || appointment.getDate().equals(input))
                 .collect(Collectors.toMap(
                         Appointment::getId,
                         Function.identity()
@@ -82,7 +85,5 @@ public class AppointmentOperation {
         appointmentMap.values().stream()
                 .map(Appointment::toString)
                 .forEach(System.out::println);
-
-
     }
 }
